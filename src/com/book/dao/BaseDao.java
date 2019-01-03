@@ -15,8 +15,12 @@ import java.sql.SQLException;
 public class BaseDao {
     private Connection conn;
 
-    public BaseDao(Connection conn) {
-        this.conn = conn;
+    {
+        try {
+            this.conn=Database.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
