@@ -6,15 +6,27 @@
  Time: 21:40
  */
 package com.book.domian;
-public class Admin {
+
+ import java.util.Date;
+
+ public class Admin {
     private int id;
     private String name;
     private String password;
     private short flag;
     private String phone;
     private short status;
+    private Date lastDate;
 
-    public int getId() {
+     public Date getLastDate() {
+         return lastDate;
+     }
+
+     public void setLastDate(Date lastDate) {
+         this.lastDate = lastDate;
+     }
+
+     public int getId() {
         return id;
     }
 

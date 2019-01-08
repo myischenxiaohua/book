@@ -17,6 +17,7 @@
     <script type="text/javascript" src="assets/validate/js/jquery.metadata.js"></script>
     <script type="text/javascript" src="assets/validate/js/Message_zh_CN.js"></script>
     <script type="text/javascript" src="assets/validate/login.js"></script>
+    <script type="text/javascript" src="assets/js/login.js"></script>
 </head>
 <body style="background-color: #E2E2E2;">
 <div class="container">
@@ -36,12 +37,18 @@
                     <br />
                     <div class="form-group input-group">
                         <span class="input-group-addon"><i class="fa fa-user"  ></i></span>
-                        <input type="text" id="aid" name="aid" value="admin" class="form-control" placeholder="Your Username " />
+                        <input type="text" id="aid" name="user" value="zs" class="form-control" placeholder="Your Username " />
                     </div>
                     <div class="form-group input-group">
                         <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
-                        <input type="password" id="password" name="password" value="admin123" class="form-control"  placeholder="Your Password" />
+                        <input type="password" id="password" name="password" value="123456" class="form-control"  placeholder="Your Password" />
                     </div>
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
+                        <input type="text" id="code" name="code" value="" class="form-control"  placeholder="Your Password" style="width: 150px" />
+                        <img src="/book/IdentityServlet/IdentifyingCode" id="identifyingCode" class="form-control" style="width: 140px"/>
+                    </div>
+
 
                     <!-- <a href="index.html" class="btn btn-primary col-md-offset-7">Login Now</a> -->
                     <input type="submit" value="登 录" class="btn btn-primary col-md-offset-5"/>

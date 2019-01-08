@@ -25,7 +25,15 @@
         <filter-name>AdminLoginFilter</filter-name>
         <url-pattern>/admin/*</url-pattern><!-- 拦截所有访问后台的页面 -->
     </filter-mapping>
-
+    <servlet>
+        <servlet-name>IdentityServlet</servlet-name>
+        <servlet-class>com.book.servlet.IdentityServlet</servlet-class>
+    </servlet>
+    <!--验证码-->
+    <servlet-mapping>
+        <servlet-name>IdentityServlet</servlet-name>
+        <url-pattern>/IdentityServlet/IdentifyingCode</url-pattern>
+    </servlet-mapping>
 
 
     <servlet>

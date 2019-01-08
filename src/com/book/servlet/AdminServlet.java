@@ -1,7 +1,8 @@
 package com.book.servlet;
 
-import com.book.dao.impl.AdminImpl;
+import com.book.dao.impl.AdminDaoImpl;
 import com.book.domian.Admin;
+import com.book.service.impl.AdminServiceImpl;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -32,15 +33,23 @@ public class AdminServlet extends HttpServlet {
         String password = request.getParameter("password");
         admin.setName(user);
         admin.setPassword(password);
-        AdminImpl adminImpl=new AdminImpl();
+
         try {
-            admin=adminImpl.login(admin);
+            System.out.println(new AdminServiceImpl().login(admin));
+            if(new AdminServiceImpl().login(admin)){
+                request.getSession().setAttribute("user",user);
+                request.getSession().setAttribute("lastdate", admin.getLastDate());
+                request.getSession().setAttribute("flag", admin.getFlag());
+                url="/index.jsp";
+            }else {
+                //登录失败
+                url = "/login.jsp";
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(Objects.nonNull(admin.getPassword())){
-            url="/index.jsp";
-        }
+
         System.out.println(url);
         return url;
     }
