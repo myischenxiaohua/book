@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
+import static java.lang.System.out;
+
 public class AdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = "/pages/errors.jsp";	//定义错误页面
@@ -18,7 +20,8 @@ public class AdminServlet extends HttpServlet {
         switch (status){
             case "login":path=login(request);break;
         }
-        request.getRequestDispatcher(path).forward(request, response);//转发jsp页面
+        out.print("true");
+        //request.getRequestDispatcher(path).forward(request, response);//转发jsp页面
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,7 +38,7 @@ public class AdminServlet extends HttpServlet {
         admin.setPassword(password);
 
         try {
-            System.out.println(new AdminServiceImpl().login(admin));
+            out.println(new AdminServiceImpl().login(admin));
             if(new AdminServiceImpl().login(admin)){
                 request.getSession().setAttribute("user",user);
                 request.getSession().setAttribute("lastdate", admin.getLastDate());
@@ -50,7 +53,7 @@ public class AdminServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        System.out.println(url);
+        out.println(url);
         return url;
     }
 }

@@ -8,56 +8,32 @@
 <html>
 <head>
     <title>图书管理系统</title>
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
-    <link href="assets/css/font-awesome.css" rel="stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    <script type="text/javascript" src="assets/validate/js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="assets/validate/js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="assets/validate/js/additional-methods.min.js"></script>
-    <script type="text/javascript" src="assets/validate/js/jquery.metadata.js"></script>
-    <script type="text/javascript" src="assets/validate/js/Message_zh_CN.js"></script>
-    <script type="text/javascript" src="assets/validate/login.js"></script>
-    <script type="text/javascript" src="assets/js/login.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-3.3.1.js" ></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js" ></script>
+    <script type="text/javascript" src="assets/js/login.js" ></script>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/login.css" />
 </head>
-<body style="background-color: #E2E2E2;">
-<div class="container">
-    <div class="row text-center " style="padding-top:100px;">
-        <div class="col-md-12">
-            <h2>图书管理系统</h2>
-        </div>
-    </div>
-    <div class="row ">
+<body>
+<div class="container login">
+    <div class="login_l"></div>
+    <div class="login_r">
 
-        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-
-            <div class="panel-body">
-                <form id="loginForm" role="form" action="admin/AdminServlet/login" method="post">
-                    <hr />
-
-                    <br />
-                    <div class="form-group input-group">
-                        <span class="input-group-addon"><i class="fa fa-user"  ></i></span>
-                        <input type="text" id="aid" name="user" value="zs" class="form-control" placeholder="Your Username " />
+        <div class="form row">
+            <div class="form-horizontal col-md-offset-3" id="login_form">
+                <div class="col-md-9">
+                    <div class="form-group"> <i class="fa glyphicon glyphicon-user"></i> <input class="form-control" type="text" placeholder="用户名" id="username" autofocus="autofocus" maxlength="20" /> </div>
+                    <div class="form-group"> <i class="fa glyphicon glyphicon-lock"></i> <input class="form-control" type="password" placeholder="密码" id="password"  maxlength="8" /> </div>
+                    <div class="form-group"><i class="fa glyphicon glyphicon-pencil"></i> <input class="form-control" type="text" placeholder="验证码" id="code"  maxlength="8" /><img src="/book/IdentityServlet/IdentifyingCode"> </div>
+                    <div class="form-group col-md-offset-9">
+                        <button type="button" class="btn btn-primary">登录</button>
                     </div>
-                    <div class="form-group input-group">
-                        <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
-                        <input type="password" id="password" name="password" value="123456" class="form-control"  placeholder="Your Password" />
-                    </div>
-                    <div class="form-group input-group">
-                        <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
-                        <input type="text" id="code" name="code" value="" class="form-control"  placeholder="Your Password" style="width: 150px" />
-                        <img src="/book/IdentityServlet/IdentifyingCode" id="identifyingCode" class="form-control" style="width: 140px"/>
-                    </div>
-
-
-                    <!-- <a href="index.html" class="btn btn-primary col-md-offset-7">Login Now</a> -->
-                    <input type="submit" value="登 录" class="btn btn-primary col-md-offset-5"/>
-
-                </form>
+                </div>
             </div>
-
         </div>
     </div>
+    <!---->
+
 </div>
 </body>
 </html>
