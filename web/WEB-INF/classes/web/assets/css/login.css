@@ -1,0 +1,55 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background-color:#131440;
+}
+.login {
+    background-color: 131440;
+}
+
+.login_l {
+    margin-left: 75px;
+    float: left;
+    background-image: url(../img/login_logo.png);
+    background-size: 575px;
+    width: 388px;
+    height: 640px;
+    background-position-x: -187px;
+}
+
+.login_r {
+    width: 600px;
+    height: 640px;
+    float: left;
+    background-image: url(../img/login_form.png);
+    background-size: 600px;
+    background-position-y: -50px;
+}
+.form {
+    /*background: rgba(255, 255, 255, 0.2);*/
+    width: 433px;
+    margin: 210px 72px;
+}
+.fa {
+
+    top: 25px;
+    left: 6px;
+    position: relative;
+    color: #ccc;
+}
+.form-group{margin-bottom:0px;}
+input[type="text"],
+input[type="password"] {
+    padding-left: 26px;
+    height: 35px;
+    line-height: 35px;
+}
+input[id="code"]{
+    width: 130px;
+}
+input[id="code"]+img{position: relative;
+    left: 140px;
+    top: -31px;}
+.login button[type="button"]{width: 243px;}
