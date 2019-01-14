@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="booksystem">
+    <output-path>$PROJECT_DIR$/out/artifacts</output-path>
+    <root id="archive" name="booksystem.war">
+      <element id="dir-copy" path="$PROJECT_DIR$/web" />
+      <element id="directory" name="classs">
+        <element id="module-output" name="book" />
+      </element>
+    </root>
+  </artifact>
+</component>

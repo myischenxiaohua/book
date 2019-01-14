@@ -21,7 +21,7 @@ public class ConfigManager {
             throw new RuntimeException("找不到数据库参数配置文件！");
         props = new Properties();
         try {
-            props.load(is);
+            props.load(is); //加载在配置文件
         } catch (IOException e) {
             throw new RuntimeException("数据库配置参数加载错误！", e);
         } finally {

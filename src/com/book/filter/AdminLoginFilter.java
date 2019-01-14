@@ -33,7 +33,7 @@ public class AdminLoginFilter implements Filter {
         } else {
             request.setAttribute("msg", "还未登陆，请先登录后操作。");
             request.setAttribute("url", "login.jsp");
-            request.getRequestDispatcher("/pages/forward.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/index.jsp").forward(request, response);
         }
     }
 

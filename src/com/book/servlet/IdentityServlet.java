@@ -73,7 +73,7 @@ public class IdentityServlet extends HttpServlet {
         response.setContentType("image/jpeg");//设置输出类型
 
         String randomString = getRandomString();//随机字符串
-        request.getSession(true).setAttribute("randomString", randomString);//放到session里
+        request.getSession(true).setAttribute("code", randomString);//放到session里
 
         int width=100;//图片宽度
         int height=30;//图片高度

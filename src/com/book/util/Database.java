@@ -16,7 +16,7 @@ public class Database {
     private static final String USER = ConfigManager.getProperty("user"); // 数据库用户名
     private static final String PASSWORD = ConfigManager.getProperty("password"); // 用户密码
     private Connection conn = null;
-    public Database(){
+    public Database(){ //构造器
         try {
             //加载驱动
             Class.forName(DRIVER);

@@ -10350,6 +10350,31 @@ jQuery.noConflict = function( deep ) {
 	return jQuery;
 };
 
+jQuery.ajaxAction=function (url,type,data,callBack,parm,dataType="json"){
+
+		$.ajax({
+			url:url, //提交地址
+			type:type, //提交方式 post/get
+			data:data,//{参数名称1:‘值1’,参数名称2:‘值2’,....}
+			dataType:dataType,//提交数据类型 如果跨域提交用jsonp
+			async:true,
+			success:function(data){ //提交成功后返回数据执行
+				console.log(data);
+				for(var fn of callBack){
+					fn(data,parm)
+				}
+
+			},
+			eerror:function(){//提交失败返回的
+				//错误信息
+				console.log('错误');
+			}
+
+
+		});
+
+	};
+
 // Expose jQuery and $ identifiers, even in AMD
 // (#7102#comment:10, https://github.com/jquery/jquery/pull/557)
 // and CommonJS for browser emulators (#13566)
