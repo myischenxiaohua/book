@@ -77,18 +77,19 @@ import java.util.Set;
         super(conn);
     }
     @Override
-    public boolean checkLogin(Admin vo) throws Exception {
+    public boolean checkLogin(Admin admin) throws Exception {
         boolean flag=false;
         String sql = "select id,name,password,flag,phone,status from T_ADMIN where name=? and password=? and status=1";
-        ResultSet rst=super.executeQuery(sql, new Object[]{vo.getName(), vo.getPassword()});
+        ResultSet rst=super.executeQuery(sql, new Object[]{admin.getName(), admin.getPassword()});
         if(rst.next()){
             flag=true;
-            vo.setId(rst.getInt(1));
-            vo.setName(rst.getString(2));
-            vo.setPassword(rst.getString(3));
-            vo.setFlag(rst.getShort(4));
-            vo.setPhone(rst.getString(5));
-            vo.setStatus(rst.getShort(6));
+            admin.setId(rst.getInt(1));
+            admin.setName(rst.getString(2));
+            admin.setPassword(rst.getString(3));
+            admin.setFlag(rst.getShort(5));
+            admin.setPhone(rst.getString(6));
+            admin.setStatus(rst.getShort(7));
+            admin.setLastDate(rst.getTimestamp(4));
         }
         return flag;
     }
