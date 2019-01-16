@@ -5,7 +5,20 @@
   Time: 10:26
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://www.cxh.com/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://www.cxh.com/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>图书管理系统</title>
+    <link href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/assets/css/main.css" rel="stylesheet" />
+</head>
+<body>
+<div id="wrapper">
 <nav class="navbar navbar-default navbar-cls-top "  style="margin-bottom: 0">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -19,9 +32,9 @@
     <!--顶部-->
     <div class="header-center">
 
-        管理员:admin
+        管理员:${user}
 
-        <small>上次登录日期:2019-01-07 13:49:29</small>
+        <small>上次登录日期:<fmt:formatDate value="${lastdate}" pattern="yyyy-MM-dd HH:mm:ss"/></small>
 
     </div>
     <div class="header-right">
@@ -29,6 +42,6 @@
 
 
 
-        <a href="pages/back/AdminServlet/logout" class="btn btn-danger" title="Logout"> 退出系统</a>
+        <a href="/book/admin/AdminServlet/logout" class="btn btn-danger" title="Logout"> 退出系统</a>
     </div>
 </nav>

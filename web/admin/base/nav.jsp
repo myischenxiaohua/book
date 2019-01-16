@@ -20,21 +20,24 @@
                 <a href="#" data-toggle="collapse" data-target="#nav1"><i class="fa glyphicon glyphicon-align-justify "></i>超级管理员操作 <span class="fa arrow glyphicon glyphicon-menu-left"></span></a>
                 <ul class="nav nav-second-level collapse" id="nav1">
                     <li>
-                        <a href="pages/back/admin/admin_insert.jsp"><i class="fa glyphicon glyphicon-record"></i>增加管理员</a>
+                        <a href="/book/admin/AdminServlet/index"><i class="fa glyphicon glyphicon-record"></i>管理员列表</a>
+                    </li>
+                    <li>
+                        <a href="/book/admin/user/add.jsp"><i class="fa glyphicon glyphicon-record"></i>增加管理员</a>
                     </li>
                 </ul>
             </li>
 
 
-            <!--用户信息-->
+            <!--读者信息-->
             <li>
-                <a href="#" data-toggle="collapse" data-target="#nav2"><i class="fa glyphicon glyphicon-align-justify "></i>用户管理 <span class="fa arrow glyphicon glyphicon-menu-left"></span></a>
+                <a href="#" data-toggle="collapse" data-target="#nav2"><i class="fa glyphicon glyphicon-align-justify "></i>读者管理 <span class="fa arrow glyphicon glyphicon-menu-left"></span></a>
                 <ul class="nav nav-second-level collapse" id="nav2">
                     <li>
-                        <a href="pages/back/member/member_insert.jsp"><i class="fa glyphicon glyphicon-record"></i>用户列表</a>
+                        <a href=""><i class="fa glyphicon glyphicon-record"></i>读者列表</a>
                     </li>
                     <li>
-                        <a href="pages/back/member/member_insert.jsp"><i class="fa glyphicon glyphicon-record"></i>用户录入</a>
+                        <a href=""><i class="fa glyphicon glyphicon-record"></i>读者录入</a>
                     </li>
                 </ul>
             </li>

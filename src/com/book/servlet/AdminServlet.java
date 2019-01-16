@@ -7,23 +7,32 @@ import com.book.service.impl.AdminServiceImpl;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONException;
+import com.book.util.MD5Code;
+import com.book.util.WebUtils;
 import org.json.JSONObject;
 
-import static java.lang.System.out;
 
 public class AdminServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String status = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/")+1);
         switch (status){
-            case "login":
-                try {
+            case "login":try {
                     login(request,response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "logout":logout(request,response); break;
+            case "reg":reg(request,response); break;
+            case "index" :
+                try {
+                    index(request,response);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -38,16 +47,17 @@ public class AdminServlet extends HttpServlet {
     public void login(HttpServletRequest request,HttpServletResponse response) throws Exception {
         int status=0;
         JSONObject jsonObject=new JSONObject();
-        Admin admin=new Admin();
+
         //获取页面中传递过来的数据
         String user = request.getParameter("user");
         String password = request.getParameter("password");
         String cheackCode=request.getParameter("code");
-        admin.setName(user);
-        admin.setPassword(password);
+
         String code=(String) request.getSession().getAttribute("code");
         if(cheackCode.equals(code)) {
-
+            Admin admin=new Admin();
+            admin.setName(user);
+            admin.setPassword(new MD5Code().getMD5ofStr(user+password));
             if (new AdminServiceImpl().login(admin)) {
                 request.getSession().setAttribute("user", user);
                 request.getSession().setAttribute("lastdate", admin.getLastDate());
@@ -70,4 +80,77 @@ public class AdminServlet extends HttpServlet {
         response.getWriter().print(jsonObject.toString());
 
     }
+
+    public void logout(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String msg = "已经成功退出系统，请重新登录！";
+        String url = "login.jsp";
+
+        request.getSession().invalidate();//表示session失效
+
+        request.setAttribute("msg", msg);
+        request.setAttribute("url", url);
+
+        request.getRequestDispatcher("/admin/forward.jsp").forward(request,response);
+
+
+    }
+
+    public void reg(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        String msg = "";
+        String url = "";
+        String user=request.getParameter("user");
+        String pwd=request.getParameter("password");
+        String phone=request.getParameter("phone");
+        short flag=Short.parseShort( request.getParameter("flag"));
+        if(WebUtils.validateEmpty(user)&&WebUtils.validateEmpty(pwd)){
+            Admin admin =new Admin();
+            admin.setName(user);
+            admin.setPassword(new MD5Code().getMD5ofStr(user+pwd));
+            admin.setPhone(phone);
+            admin.setFlag(flag);
+            try {
+                if(new AdminServiceImpl().insert(admin)){
+                    msg = "添加成功";
+                    url = "/admin/user/list.jsp";
+                }else{
+                    msg = "添加失败";
+                    url = "/admin/user/add.jsp";
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }else {
+            msg = "用户名或密码不能为空！";
+            url = "/admin/user/add.jsp";
+        }
+        request.setAttribute("msg", msg);
+        request.setAttribute("url", url);
+        System.out.print(url);
+        request.getRequestDispatcher("/admin/forward.jsp").forward(request,response);
+    }
+
+    public void index(HttpServletRequest request,HttpServletResponse response) throws Exception {
+        Integer currentPage = Integer.parseInt(request.getParameter("cp") == null ? "1" : request.getParameter("cp"));
+        Integer lineSize = Integer.parseInt(request.getParameter("ls") == null ? "5" : request.getParameter("ls"));
+        String keyWord = request.getParameter("key")==null?"":request.getParameter("key");
+        String column = request.getParameter("col")==null?"name":request.getParameter("col");
+        Map<String,Object> map = new AdminServiceImpl().listBySplit(column, keyWord, currentPage, lineSize);
+        request.setAttribute("admins", map.get("admins"));
+        request.setAttribute("allRecorders", map.get("recordSize"));
+        request.setAttribute("url", "/book/admin/AdminServlet/index");
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("lineSize", lineSize);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("keyWord", keyWord);
+        request.getRequestDispatcher("/admin/user/index.jsp").forward(request,response);
+    }
+
+
+
+
+
+
+
+
 }
