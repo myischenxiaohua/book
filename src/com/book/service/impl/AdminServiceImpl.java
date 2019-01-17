@@ -11,14 +11,18 @@ import com.book.domian.Admin;
 import com.book.service.AdminService;
 import com.book.util.Database;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AdminServiceImpl implements AdminService {
     private Database db=new Database();
+
     @Override
-    public boolean login(Admin vo) throws Exception {
+    public boolean login(Admin admin) throws Exception {
 
         try{
-            if(new AdminDaoImpl(db.getConn()).checkLogin(vo)){
-                return new AdminDaoImpl(db.getConn()).updateByLastDate(vo.getName());
+            if(new AdminDaoImpl(db.getConn()).checkLogin(admin)){
+                return new AdminDaoImpl(db.getConn()).updateByLastDate(admin.getName());
             }
             return false;
         } catch(Exception e){
@@ -42,4 +46,36 @@ public class AdminServiceImpl implements AdminService {
         }
         return false;
     }
+
+    @Override
+    public boolean edit(Admin vo) throws Exception {
+        if(new AdminDaoImpl(db.getConn()).updateData(vo)){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delById(int id) throws Exception {
+        if(new AdminDaoImpl(db.getConn()).delById(id)){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Map<String, Object> listBySplit(String column, String keyWord, int currentPage, int lineSize) throws Exception {
+        Map<String, Object> map = null;
+        try{
+        map = new HashMap<String, Object>();
+        map.put("admins",new AdminDaoImpl(db.getConn()).findBySplit(column, keyWord, currentPage, lineSize));
+        map.put("recordSize",new AdminDaoImpl(db.getConn()).getAllCount(column, keyWord));
+        } catch(Exception e){
+            throw e;
+        } finally{
+            this.db.close();
+        }
+        return map;
+    }
+
 }

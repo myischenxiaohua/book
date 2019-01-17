@@ -26,4 +26,6 @@ public interface AdminDao extends BaseDao<String, Admin> {
      */
     public boolean updateByLastDate(String name) throws Exception;
 
+    public  boolean delById(int id) throws Exception;
+
 }

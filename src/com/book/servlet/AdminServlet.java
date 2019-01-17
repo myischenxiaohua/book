@@ -37,6 +37,8 @@ public class AdminServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
+            case "del":del(request,response);break;
+            case "edit" :edit(request,response);break;
         }
 
     }
@@ -111,7 +113,7 @@ public class AdminServlet extends HttpServlet {
             try {
                 if(new AdminServiceImpl().insert(admin)){
                     msg = "添加成功";
-                    url = "/admin/user/list.jsp";
+                    url = "admin/AdminServlet/index";
                 }else{
                     msg = "添加失败";
                     url = "/admin/user/add.jsp";
@@ -145,8 +147,55 @@ public class AdminServlet extends HttpServlet {
         request.setAttribute("keyWord", keyWord);
         request.getRequestDispatcher("/admin/user/index.jsp").forward(request,response);
     }
+    public void del(HttpServletRequest request,HttpServletResponse response){
+        int status=0;
+        Integer id=Integer.parseInt(request.getParameter("id"));
+        JSONObject jsonObject=new JSONObject();
+        try {
+            if(new AdminServiceImpl().delById(id)){
+                jsonObject.put("url","/book/admin/user/index.jsp");
+                jsonObject.put("msg","删除成功");
+                status=1;
+            }else {
+                jsonObject.put("msg","删除失败");
+            }
+            jsonObject.put("status",status);
+            System.out.println(status);
+            response.getWriter().print(jsonObject.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+    }
 
+    public void edit(HttpServletRequest request,HttpServletResponse response){
+        int status=0;
+        Admin admin=new Admin();
+        Integer id=Integer.parseInt(request.getParameter("id"));
+        admin.setId(id);
+        admin.setName(request.getParameter("user"));
+        admin.setPassword(request.getParameter("pwd"));
+        admin.setPhone(request.getParameter("phone"));
+        admin.setFlag(Short.parseShort(request.getParameter("flag")));
+        admin.setStatus(Short.parseShort(request.getParameter("status")));
+
+        JSONObject jsonObject=new JSONObject();
+        try {
+            if(new AdminServiceImpl().edit(admin)){
+                jsonObject.put("url","/book/admin/AdminServlet/index");
+                jsonObject.put("msg","编辑成功");
+                status=1;
+            }else {
+                jsonObject.put("msg","编辑失败");
+            }
+            jsonObject.put("status",status);
+            System.out.println(status);
+            response.getWriter().print(jsonObject.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
 

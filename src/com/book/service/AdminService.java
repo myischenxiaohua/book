@@ -8,6 +8,8 @@ package com.book.service; /*
 
 import com.book.domian.Admin;
 
+import java.util.Map;
+
 public interface AdminService {
     /**
      * 实现管理员登录检查操作，调用AdminDAO接口中的checkLogin方法
@@ -24,4 +26,33 @@ public interface AdminService {
      * @throws Exception
      */
     boolean insert(Admin vo) throws Exception;
+
+    /**
+     * 实现修改操作
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    boolean edit(Admin vo) throws Exception;
+    /**
+     * 实现删除操作
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    boolean delById(int id) throws Exception;
+
+
+
+    /**
+     * 调用分页接口类
+     * @param column 列名
+     * @param keyword 查询关键字
+     * @param currentPage 当前页
+     * @param lineSize 每页的记录数
+     * @return
+     * @throws Exception
+     */
+    public Map<String, Object> listBySplit(String column, String keyword, int currentPage, int lineSize) throws Exception;
+
 }

@@ -12,6 +12,7 @@ import com.book.domian.Admin;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.sql.ResultSet;
 import java.util.List;
@@ -22,8 +23,8 @@ import java.util.Set;
 
      @Override
      public boolean createData(Admin vo) throws SQLException {
-         String sql = "insert into admin(name,password,status) values(?,?,?)";
-         int rel=super.executeUpdate(sql,new Object[]{vo.getName(),vo.getPassword(),vo.getStatus()});
+         String sql = "insert into T_ADMIN (name,password,phone,flag) values(?,?,?,?)";
+         int rel=super.executeUpdate(sql,new Object[]{vo.getName(),vo.getPassword(),vo.getPhone(),vo.getFlag()});
 
 //		 new java.sql.Timestamp(vo.getLastDate().getTime())
 
@@ -33,7 +34,9 @@ import java.util.Set;
 
      @Override
      public boolean updateData(Admin vo) throws SQLException {
-         return false;
+         String sql="update T_ADMIN set password=? ,phone=?,flag=?,status=? where id=?";
+        int rel= super.executeUpdate(sql,new Object[]{vo.getPassword(),vo.getPassword(),vo.getPhone(),vo.getFlag(),vo.getStatus(),vo.getId()});
+         return rel>0;
      }
 
      @Override
@@ -59,18 +62,47 @@ import java.util.Set;
      }
 
      @Override
+     public boolean delById(int id) throws Exception {
+         String sql ="delete from T_ADMIN where id=?";
+         int rel=super.executeUpdate(sql,id);
+         return rel>0;
+     }
+
+     @Override
      public List findAll() throws SQLException {
          return null;
      }
 
      @Override
-     public List findBySplit(String column, String keyWord, Integer currentPage, Integer lineSize) throws SQLException {
-         return null;
+     public List<Admin> findBySplit(String column, String keyWord, Integer currentPage, Integer lineSize) throws SQLException {
+         List<Admin> admins=new ArrayList<Admin>();
+         String sql= "select * from T_ADMIN where "+column+" like ?"
+                 + " order by id limit ?,?";
+         ResultSet rst=super.executeQuery(sql, new Object[]{"%" + keyWord + "%", (currentPage - 1)*lineSize,lineSize});
+         while (rst.next()){
+             Admin admin=new Admin();
+             admin.setId(rst.getInt("id"));
+             admin.setName(rst.getString("name"));
+             admin.setPassword(rst.getString("password"));
+             admin.setLastDate(rst.getTimestamp("lastdate"));
+             admin.setFlag(rst.getShort("flag"));
+             admin.setPhone(rst.getString("phone"));
+             admin.setStatus(rst.getShort("status"));
+             admins.add(admin);
+
+         }
+
+         return admins;
      }
 
      @Override
      public Integer getAllCount(String column, String keyWord) throws SQLException {
-         return null;
+         String sql = "select count(name) num from T_ADMIN where ? like ?";
+         ResultSet rst=super.executeQuery(sql, new Object[]{column,"%" + keyWord + "%"});
+         if(rst.next()){
+             return rst.getInt("num");
+         }
+         return 0;
      }
 
      public AdminDaoImpl(Connection conn){
@@ -79,17 +111,18 @@ import java.util.Set;
     @Override
     public boolean checkLogin(Admin admin) throws Exception {
         boolean flag=false;
-        String sql = "select id,name,password,flag,phone,status from T_ADMIN where name=? and password=? and status=1";
+        String sql = "select id,name,password,lastdate,flag,phone,status from T_ADMIN where name=? and password=? and status=1";
         ResultSet rst=super.executeQuery(sql, new Object[]{admin.getName(), admin.getPassword()});
         if(rst.next()){
             flag=true;
             admin.setId(rst.getInt(1));
             admin.setName(rst.getString(2));
             admin.setPassword(rst.getString(3));
+            admin.setLastDate(rst.getTimestamp(4));
             admin.setFlag(rst.getShort(5));
             admin.setPhone(rst.getString(6));
             admin.setStatus(rst.getShort(7));
-            admin.setLastDate(rst.getTimestamp(4));
+
         }
         return flag;
     }
