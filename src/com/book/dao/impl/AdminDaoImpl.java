@@ -24,7 +24,7 @@ import java.util.Set;
      @Override
      public boolean createData(Admin vo) throws SQLException {
          String sql = "insert into T_ADMIN (name,password,phone,flag) values(?,?,?,?)";
-         int rel=super.executeUpdate(sql,new Object[]{vo.getName(),vo.getPassword(),vo.getPhone(),vo.getFlag()});
+         int rel=super.executeUpdate(sql,vo.getName(),vo.getPassword(),vo.getPhone(),vo.getFlag());
 
 //		 new java.sql.Timestamp(vo.getLastDate().getTime())
 
@@ -35,7 +35,7 @@ import java.util.Set;
      @Override
      public boolean updateData(Admin vo) throws SQLException {
          String sql="update T_ADMIN set password=? ,phone=?,flag=?,status=? where id=?";
-        int rel= super.executeUpdate(sql,new Object[]{vo.getPassword(),vo.getPassword(),vo.getPhone(),vo.getFlag(),vo.getStatus(),vo.getId()});
+        int rel= super.executeUpdate(sql,vo.getPassword(),vo.getPassword(),vo.getPhone(),vo.getFlag(),vo.getStatus(),vo.getId());
          return rel>0;
      }
 
@@ -78,7 +78,7 @@ import java.util.Set;
          List<Admin> admins=new ArrayList<Admin>();
          String sql= "select * from T_ADMIN where "+column+" like ?"
                  + " order by id limit ?,?";
-         ResultSet rst=super.executeQuery(sql, new Object[]{"%" + keyWord + "%", (currentPage - 1)*lineSize,lineSize});
+         ResultSet rst=super.executeQuery(sql, "%" + keyWord + "%", (currentPage - 1)*lineSize,lineSize);
          while (rst.next()){
              Admin admin=new Admin();
              admin.setId(rst.getInt("id"));
@@ -98,7 +98,7 @@ import java.util.Set;
      @Override
      public Integer getAllCount(String column, String keyWord) throws SQLException {
          String sql = "select count(name) num from T_ADMIN where ? like ?";
-         ResultSet rst=super.executeQuery(sql, new Object[]{column,"%" + keyWord + "%"});
+         ResultSet rst=super.executeQuery(sql, column,"%" + keyWord + "%");
          if(rst.next()){
              return rst.getInt("num");
          }
@@ -112,7 +112,7 @@ import java.util.Set;
     public boolean checkLogin(Admin admin) throws Exception {
         boolean flag=false;
         String sql = "select id,name,password,lastdate,flag,phone,status from T_ADMIN where name=? and password=? and status=1";
-        ResultSet rst=super.executeQuery(sql, new Object[]{admin.getName(), admin.getPassword()});
+        ResultSet rst=super.executeQuery(sql, admin.getName(), admin.getPassword());
         if(rst.next()){
             flag=true;
             admin.setId(rst.getInt(1));
@@ -132,7 +132,7 @@ import java.util.Set;
         boolean flag = false;
         String sql = "update T_ADMIN set lastdate = ? where name = ?";
         //登陆成功后，使用当前日期为最后一次登陆日期
-        int rel = super.executeUpdate(sql,new Object[]{new Timestamp(new Date().getTime()),name});
+        int rel = super.executeUpdate(sql,new Timestamp(new Date().getTime()),name);
         if(rel > 0){
             flag = true;
         }
