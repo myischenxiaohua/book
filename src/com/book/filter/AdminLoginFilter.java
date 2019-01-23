@@ -25,7 +25,7 @@ public class AdminLoginFilter implements Filter {
                          FilterChain chain) throws IOException, ServletException {
         HttpServletRequest hRequest = (HttpServletRequest)request;
         HttpSession session = hRequest.getSession();
-        String uid = (String)session.getAttribute("uuid");
+        String uid = (String)session.getAttribute("user");
         HttpServletRequest req = (HttpServletRequest)request;
         String status = req.getRequestURI().substring(req.getRequestURI().lastIndexOf("/")+1);
         if("login".equals(status) || uid != null){//用户登录操作、用户已经登录可以通过
@@ -33,7 +33,7 @@ public class AdminLoginFilter implements Filter {
         } else {
             request.setAttribute("msg", "还未登陆，请先登录后操作。");
             request.setAttribute("url", "login.jsp");
-            request.getRequestDispatcher("/admin/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/forward.jsp").forward(request, response);
         }
     }
 

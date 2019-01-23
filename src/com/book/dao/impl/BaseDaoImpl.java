@@ -23,7 +23,7 @@ public class BaseDaoImpl {
      *
      * @param sql
      *            sql语句
-     * @param prams
+     * @param params
      *            参数数组
      * @return 执行结果
      * @throws SQLException

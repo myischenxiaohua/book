@@ -36,6 +36,8 @@
     </servlet-mapping>
 
 
+
+
     <servlet>
         <servlet-name>adminServlet</servlet-name>
         <servlet-class>com.book.servlet.AdminServlet</servlet-class>
@@ -44,4 +46,46 @@
         <servlet-name>adminServlet</servlet-name>
         <url-pattern>/admin/AdminServlet/*</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>readerServlet</servlet-name>
+        <servlet-class>com.book.servlet.ReaderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>readerServlet</servlet-name>
+        <url-pattern>/admin/ReaderServlet/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>bookServlet</servlet-name>
+        <servlet-class>com.book.servlet.BookServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>bookServlet</servlet-name>
+        <url-pattern>/admin/BookServlet/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>bookCategory</servlet-name>
+        <servlet-class>com.book.servlet.BookCategoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>bookCategory</servlet-name>
+        <url-pattern>/admin/BookCategoryServlet/*</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- 配置JSTL -->
+    <jsp-config>
+        <taglib>
+            <taglib-uri>http://www.cxh.com/jstl/core</taglib-uri>
+            <taglib-location>/WEB-INF/jstl/c.tld</taglib-location>
+        </taglib>
+        <taglib>
+            <taglib-uri>http://www.cxh.com/jstl/fmt</taglib-uri>
+            <taglib-location>/WEB-INF/jstl/fmt.tld</taglib-location>
+        </taglib>
+        <taglib>
+            <taglib-uri>http://www.cxh.com/jstl/fn</taglib-uri>
+            <taglib-location>/WEB-INF/jstl/fn.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+
 </web-app>

@@ -27,6 +27,8 @@ body {
 	min-height: 800px;
 }
 
+#page-inner table thead th,#page-inner table tbody td{text-align: center}
+
 .page-head-line {
 	font-size: 30px;
 	text-transform: uppercase;
@@ -182,6 +184,7 @@ body {
 .nav>li>a>i {
 	margin-right: 10px;
 }
+
 
 
 /*==============================================
