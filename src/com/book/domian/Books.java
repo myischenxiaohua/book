@@ -23,6 +23,33 @@ public class Books {
     private int inventory;
     private int bookcaseId;
     private String remark;
+    private Admin admin; //添加图书的人
+    private BookCase bookCase; //书架
+    private BookCategory bookCategory;//分类
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public BookCase getBookCase() {
+        return bookCase;
+    }
+
+    public void setBookCase(BookCase bookCase) {
+        this.bookCase = bookCase;
+    }
+
+    public BookCategory getBookCategory() {
+        return bookCategory;
+    }
+
+    public void setBookCategory(BookCategory bookCategory) {
+        this.bookCategory = bookCategory;
+    }
 
     public String getIsbn() {
         return isbn;

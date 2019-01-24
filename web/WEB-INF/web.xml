@@ -70,6 +70,14 @@
         <servlet-name>bookCategory</servlet-name>
         <url-pattern>/admin/BookCategoryServlet/*</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>config</servlet-name>
+        <servlet-class>com.book.servlet.ConfigServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>config</servlet-name>
+        <url-pattern>/admin/ConfigServlet/*</url-pattern>
+    </servlet-mapping>
 
 
     <!-- 配置JSTL -->

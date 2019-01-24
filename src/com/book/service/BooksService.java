@@ -8,6 +8,8 @@ package com.book.service; /*
 
 import com.book.domian.Books;
 
+import java.util.Map;
+
 public interface BooksService {
     /**
      * 实现数据增加操作
@@ -16,4 +18,15 @@ public interface BooksService {
      * @throws Exception
      */
     boolean insert(Books vo) throws Exception;
+
+    /**
+     * 调用分页接口类
+     * @param column 列名
+     * @param keyword 查询关键字
+     * @param currentPage 当前页
+     * @param lineSize 每页的记录数
+     * @return
+     * @throws Exception
+     */
+    public Map<String, Object> listBySplit(String column, String keyword, int currentPage, int lineSize) throws Exception;
 }

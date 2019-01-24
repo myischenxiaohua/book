@@ -6,7 +6,6 @@ package com.book.dao; /*
  Time: 16:32
  */
 
-import com.book.domian.BookCase;
 import com.book.domian.BookCategory;
 
 public interface BookCategoryDao extends BaseDao<String, BookCategory>{}

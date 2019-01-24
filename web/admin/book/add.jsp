@@ -36,7 +36,7 @@
                 <label for="bookcase" class="col-md-3 control-label">书架</label>
                 <div class="col-md-6">
                     <select class="form-control" id="bookcase" name="bookcase">
-
+                        <option value="-1">请选择</option>
                     </select>
                 </div>
             </div>
@@ -99,8 +99,19 @@
 
                 $("#category").append(" <option value=\""+op.id+"\">"+op.name+"</option>");
             }
+            $.ajaxAction("/book/admin/ConfigServlet/bookCaseList","get",{ajax:true},[setBookCase])
 
 
+        }
+    }
+    function setBookCase(data) {
+        if(data.status) {
+            for (var op of data.data) {
+                $("#bookcase").append(" <option value=\"" + op.id + "\">" + op.name + "</option>");
+            }
+            console.log(data);
+        }else {
+            console.log("获取数据错误");
         }
     }
 </script>

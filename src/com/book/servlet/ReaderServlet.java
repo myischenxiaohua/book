@@ -6,7 +6,6 @@ package com.book.servlet; /*
  Time: 21:40
  */
 
-import com.book.dao.impl.ReaderDaoImpl;
 import com.book.domian.Reader;
 import com.book.service.impl.ReaderServiceImpl;
 
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 public class ReaderServlet extends HttpServlet {
     @Override
@@ -29,6 +29,7 @@ public class ReaderServlet extends HttpServlet {
         switch (status){
 
             case "add":add(request,response); break;
+            case "index":index(request,response); break;
 
         }
     }
@@ -57,6 +58,28 @@ public class ReaderServlet extends HttpServlet {
         request.setAttribute("msg", msg);
         request.setAttribute("url", url);
         request.getRequestDispatcher("/admin/forward.jsp").forward(request,response);
+
+    }
+    public void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Integer currentPage = Integer.parseInt(request.getParameter("cp") == null ? "1" : request.getParameter("cp"));
+        Integer lineSize = Integer.parseInt(request.getParameter("ls") == null ? "5" : request.getParameter("ls"));
+        String keyWord = request.getParameter("key")==null?"":request.getParameter("key");
+        String column = request.getParameter("col")==null?"name":request.getParameter("col");
+        Map<String,Object> map = null;
+        try {
+            map = new ReaderServiceImpl().listBySplit(column, keyWord, currentPage, lineSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        request.setAttribute("readers", map.get("readers"));
+        request.setAttribute("allRecorders", map.get("recordSize"));
+        request.setAttribute("url", "/book/admin/ReaderServlet/index");
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("lineSize", lineSize);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("keyWord", keyWord);
+        request.getRequestDispatcher("/admin/reader/index.jsp").forward(request,response);
 
     }
 

@@ -17,12 +17,12 @@ public interface BookCategoryService {
      * @return 成功返回 true，失败返回 false
      * @throws Exception
      */
-    public boolean insert(BookCategory vo) throws Exception;
+    boolean insert(BookCategory vo) throws Exception;
 
     /**
      * 定义实现数据全部查询操作
      * @return
      * @throws Exception
      */
-    public List<BookCategory> list() throws Exception;
+    List<BookCategory> list() throws Exception;
 }

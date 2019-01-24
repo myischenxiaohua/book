@@ -11,6 +11,6 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  <script>location.href="/book/login.jsp"</script>
   </body>
 </html>

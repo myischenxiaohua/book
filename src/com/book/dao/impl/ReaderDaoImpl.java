@@ -13,6 +13,7 @@ import com.book.domian.Reader;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -42,7 +43,7 @@ public class ReaderDaoImpl extends BaseDaoImpl implements ReaderDao {
     @Override
     public Reader findById(String card) throws SQLException {
         Reader reader=null;
-        String sql="select id,name,age,card,sex,phone,violation_no,borrow_book_number,createdate from T_READER where card=?";
+        String sql="select id,name,age,card,sex,phone,violation_no,borrow_book_number,createDate from T_READER where card=?";
         ResultSet rst=super.executeQuery(sql,card);
         if (rst.next()){
             reader.setId(rst.getInt("id"));
@@ -53,7 +54,7 @@ public class ReaderDaoImpl extends BaseDaoImpl implements ReaderDao {
             reader.setPhone(rst.getString("phone"));
             reader.setViolationNo(rst.getInt("violation_no"));
             reader.setBorrowBookNumber(rst.getInt("borrow_book_number"));
-            reader.setCreateDate(rst.getDate("createdate"));
+            reader.setCreateDate(rst.getDate("createDate"));
         }
         return reader;
     }
@@ -65,11 +66,37 @@ public class ReaderDaoImpl extends BaseDaoImpl implements ReaderDao {
 
     @Override
     public List<Reader> findBySplit(String column, String keyWord, Integer currentPage, Integer lineSize) throws SQLException {
-        return null;
+        List<Reader> list=new ArrayList<Reader>();
+        String sql= "select * from T_READER " +
+                " where "+column+" like ?"
+                + " order by createDate limit ?,?";
+        ResultSet rst=super.executeQuery(sql, "%" + keyWord + "%", (currentPage - 1)*lineSize,lineSize);
+
+        while (rst.next()){
+            Reader reader=new Reader();
+            reader.setId(rst.getInt("id"));
+            reader.setName(rst.getString("name"));
+            reader.setAge(rst.getInt("age"));
+            reader.setCard(rst.getString("card"));
+            reader.setSex(rst.getShort("sex"));
+            reader.setPhone(rst.getString("phone"));
+            reader.setViolationNo(rst.getInt("violation_no"));
+            reader.setBorrowBookNumber(rst.getInt("borrow_book_number"));
+            reader.setCreateDate(rst.getDate("createDate"));
+            list.add(reader);
+        }
+
+        return list;
     }
 
     @Override
     public Integer getAllCount(String column, String keyWord) throws SQLException {
-        return null;
+        String sql = "select count(name) num from T_READER where ? like ?";
+        ResultSet rst=super.executeQuery(sql, column,"%" + keyWord + "%");
+        if(rst.next()){
+            return rst.getInt("num");
+        }
+        return 0;
+
     }
 }

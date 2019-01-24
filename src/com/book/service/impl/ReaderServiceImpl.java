@@ -11,6 +11,9 @@ import com.book.domian.Reader;
 import com.book.service.ReaderService;
 import com.book.util.Database;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ReaderServiceImpl implements ReaderService {
     private Database db=new Database();
     @Override
@@ -29,5 +32,20 @@ public class ReaderServiceImpl implements ReaderService {
 
 
         return false;
+    }
+
+    @Override
+    public Map<String, Object> listBySplit(String column, String keyword, int currentPage, int lineSize) throws Exception {
+        Map<String,Object> map=null;
+        try{
+            map=new HashMap<String, Object>();
+            map.put("readers",new ReaderDaoImpl(db.getConn()).findBySplit(column,keyword,currentPage,lineSize));
+            map.put("recordSize",new ReaderDaoImpl(db.getConn()).getAllCount(column,keyword));
+        } catch(Exception e){
+            throw e;
+        } finally{
+            this.db.close();
+        }
+        return map;
     }
 }

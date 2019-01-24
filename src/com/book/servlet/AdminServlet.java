@@ -62,6 +62,7 @@ public class AdminServlet extends HttpServlet {
             admin.setPassword(new MD5Code().getMD5ofStr(user+password));
             if (new AdminServiceImpl().login(admin)) {
                 request.getSession().setAttribute("user", user);
+                request.getSession().setAttribute("userId", admin.getId());
                 request.getSession().setAttribute("lastdate", admin.getLastDate());
                 request.getSession().setAttribute("flag", admin.getFlag());
                 status = 1;

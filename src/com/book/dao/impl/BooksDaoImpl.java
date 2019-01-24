@@ -7,11 +7,15 @@ package com.book.dao.impl; /*
  */
 
 import com.book.dao.BooksDao;
+import com.book.domian.Admin;
+import com.book.domian.BookCase;
+import com.book.domian.BookCategory;
 import com.book.domian.Books;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -28,7 +32,7 @@ public class BooksDaoImpl extends BaseDaoImpl implements BooksDao {
                 "admin_id,author," +
                 "publish,edition," +
                 "publishdate,unitprice," +
-                "extant,inventory"+
+                "extant,inventory,"+
                 "credate,remark) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         int rel=super.executeUpdate(sql,vo.getIsbn(),vo.getName(),
                 vo.getCategoryId(),vo.getBookcaseId(),vo.getAdminId(),vo.getAuthor(),
@@ -61,22 +65,61 @@ public class BooksDaoImpl extends BaseDaoImpl implements BooksDao {
 
     @Override
     public List<Books> findBySplit(String column, String keyWord, Integer currentPage, Integer lineSize) throws SQLException {
-        return null;
+        List<Books> books=new ArrayList<Books>();
+
+        String sql= "select b.*, a.name admin,c.name category,bc.name bookcase from T_BOOKS b" +
+                " left join T_ADMIN a on b.admin_id=a.id" +
+                " left join T_BOOK_CATEGORY c on c.id=b.category_id"+
+                " left join T_BOOKCASE bc on bc.id=b.bookcase_id"+
+                " where b."+column+" like ?"
+                + " order by credate limit ?,?";
+        ResultSet rst=super.executeQuery(sql, "%" + keyWord + "%", (currentPage - 1)*lineSize,lineSize);
+        while (rst.next()){
+            Books book=new Books();
+            book.setIsbn(rst.getString("isbn"));
+            book.setName(rst.getString("name"));
+            book.setAuthor(rst.getString("author"));
+            book.setPublish(rst.getString("publish"));
+            book.setEdition(rst.getInt("edition"));
+            book.setPublishDate(rst.getDate("publishdate"));
+            book.setUnitprice(rst.getDouble("unitprice"));
+            book.setCreatDate(rst.getDate("credate"));
+            Admin admin =new Admin();
+            admin.setName(rst.getString("admin"));
+            admin.setId(rst.getInt("admin_id"));
+            book.setAdmin(admin);
+            BookCategory bookCategory=new BookCategory();
+            bookCategory.setName(rst.getString("category"));
+            book.setBookCategory(bookCategory);
+            BookCase bookCase=new BookCase();
+            bookCase.setName(rst.getString("bookcase"));
+            book.setBookCase(bookCase);
+
+            books.add(book);
+
+        }
+
+        return books;
     }
 
     @Override
     public Integer getAllCount(String column, String keyWord) throws SQLException {
-        return null;
+        String sql = "select count(name) num from T_BOOKS where ? like ?";
+        ResultSet rst=super.executeQuery(sql, column,"%" + keyWord + "%");
+        if(rst.next()){
+            return rst.getInt("num");
+        }
+        return 0;
+
     }
 
     @Override
     public boolean findByName(String name) throws SQLException {
-        Books books=null;
-        String sql="select * from T_Books where name=?";
+        String sql="select * from T_BOOKS where name=?";
         ResultSet rst=super.executeQuery(sql,name);
         if(rst.next()){
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 }

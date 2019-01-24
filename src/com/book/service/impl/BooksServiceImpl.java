@@ -12,6 +12,8 @@ import com.book.service.BooksService;
 import com.book.util.Database;
 
 import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BooksServiceImpl implements BooksService {
     private Database db=new Database();
@@ -25,5 +27,20 @@ public class BooksServiceImpl implements BooksService {
             return  true;
         }
         return false;
+    }
+
+    @Override
+    public Map<String, Object> listBySplit(String column, String keyword, int currentPage, int lineSize) throws Exception {
+        Map<String, Object> map = null;
+        try{
+        map=new HashMap<String, Object>();
+        map.put("books",new BooksDaoImpl(db.getConn()).findBySplit(column,keyword,currentPage,lineSize));
+        map.put("recordSize",new BooksDaoImpl(db.getConn()).getAllCount(column,keyword));
+        } catch(Exception e){
+            throw e;
+        } finally{
+            this.db.close();
+        }
+        return map;
     }
 }

@@ -33,6 +33,7 @@ public class BaseDaoImpl {
             for (int i = 0; i < params.length; i++) {
                 this.pstmt.setObject(i + 1, params[i]);
             }
+            System.out.println(this.pstmt.toString());
        return this.pstmt.executeUpdate();
 
 
@@ -53,6 +54,7 @@ public class BaseDaoImpl {
             for (int i = 0; i < params.length; i++) {
                 this.pstmt.setObject(i + 1, params[i]);
             }
+            System.out.println(pstmt.toString());
             return this.pstmt.executeQuery();
 
     }
