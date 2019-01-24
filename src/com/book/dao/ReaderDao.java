@@ -9,4 +9,5 @@ package com.book.dao; /*
 import com.book.domian.Reader;
 
 public interface ReaderDao extends BaseDao<String, Reader> {
+
 }

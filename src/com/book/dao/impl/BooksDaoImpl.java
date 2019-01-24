@@ -71,7 +71,7 @@ public class BooksDaoImpl extends BaseDaoImpl implements BooksDao {
                 " left join T_ADMIN a on b.admin_id=a.id" +
                 " left join T_BOOK_CATEGORY c on c.id=b.category_id"+
                 " left join T_BOOKCASE bc on bc.id=b.bookcase_id"+
-                " where b."+column+" like ?"
+                " where b.inventory>0 and b."+column+" like ?"
                 + " order by credate limit ?,?";
         ResultSet rst=super.executeQuery(sql, "%" + keyWord + "%", (currentPage - 1)*lineSize,lineSize);
         while (rst.next()){
@@ -84,6 +84,9 @@ public class BooksDaoImpl extends BaseDaoImpl implements BooksDao {
             book.setPublishDate(rst.getDate("publishdate"));
             book.setUnitprice(rst.getDouble("unitprice"));
             book.setCreatDate(rst.getDate("credate"));
+            book.setExtant(rst.getInt("extant"));
+            book.setInventory(rst.getInt("inventory"));
+            book.setRemark(rst.getString("remark"));
             Admin admin =new Admin();
             admin.setName(rst.getString("admin"));
             admin.setId(rst.getInt("admin_id"));
