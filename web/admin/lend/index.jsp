@@ -41,7 +41,7 @@
                         <td>第${book.edition}版</td>
                         <td><fmt:formatDate value="${book.publishDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                         <td>${book.admin.name}</td>
-                        <td><button type="button" id="editBtn" class="btn  btn-info btn-sm">详情</button>&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-sm"  id="delBtn" >借出</button></td>
+                        <td><button type="button" id="detailBtn" class="btn  btn-info btn-sm">详情</button>&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-sm"  id="lendBtn" >借出</button></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -52,5 +52,56 @@
         </c:if>
     </div>
 </div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">编辑</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="txt_user">用户名</label>
+                    <input type="text" class="form-control" id="txt_user" disabled placeholder="用户名">
+                </div>
+                <div class="form-group">
+                    <label for="txt_pwd">密码</label>
+                    <input type="text" class="form-control" id="txt_pwd" placeholder="密码">
+                </div>
+                <div class="form-group">
+                    <label for="txt_phone">电话</label>
+                    <input type="text" class="form-control" id="txt_phone">
+                </div>
+                <div class="form-group">
+                    <label for="txt_type">类型</label>
+                    <select class="form-control" id="txt_type">
+                        <option value="1">超级管理员</option>
+                        <option value="0">管理员</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="txt_status">状态</label>
+                    <select class="form-control" id="txt_status">
+                        <option value="1">启用</option>
+                        <option value="0">禁用</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                <button type="button" id="btn_submit"  class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$("#lendBtn").click(function () {
+
+
+});
+</script>
 
 <jsp:include page="/admin/base/footer.jsp"></jsp:include>

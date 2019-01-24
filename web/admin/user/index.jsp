@@ -124,9 +124,7 @@
         $.ajaxAction(url,"post",data,[reloadData]);
     })
 
-    function reloadData(data,prm){
-        location.reload();
-    }
+
 
    $("tbody #editBtn").click(function () {
        var row=$(this).parent().parent().children();
