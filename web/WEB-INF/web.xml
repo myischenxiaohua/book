@@ -78,6 +78,14 @@
         <servlet-name>config</servlet-name>
         <url-pattern>/admin/ConfigServlet/*</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>lend</servlet-name>
+        <servlet-class>com.book.servlet.LendServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>lend</servlet-name>
+        <url-pattern>/admin/LendServlet/*</url-pattern>
+    </servlet-mapping>
 
 
     <!-- 配置JSTL -->

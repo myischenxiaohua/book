@@ -20,7 +20,22 @@ public class LendServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String status=request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/")+1);
+        switch (status){
+            case "index" : index(request,response);break;
+            case "add":add(request,response);break;
+        }
+
 
 
     }
+
+
+    public void  index(HttpServletRequest request, HttpServletResponse response){
+    
+    }
+    public void add(HttpServletRequest request, HttpServletResponse response){
+
+    }
+
 }
