@@ -71,7 +71,7 @@
                 <a href="#" data-toggle="collapse" data-target="#nav5"><i class="fa glyphicon glyphicon-align-justify "></i>借阅管理 <span class="fa arrow glyphicon glyphicon-menu-left"></span></a>
                 <ul class="nav nav-second-level collapse" id="nav5">
                     <li>
-                        <a href=""><i class="fa glyphicon glyphicon-record"></i>借书</a>
+                        <a href="/book/admin/LendServlet/index"><i class="fa glyphicon glyphicon-record"></i>借书</a>
                     </li>
                     <li>
                         <a href="/book/admin/book/add.jsp"><i class="fa glyphicon glyphicon-record"></i>借阅信息</a>

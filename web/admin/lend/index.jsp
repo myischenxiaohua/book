@@ -41,7 +41,7 @@
                         <td>第${book.edition}版</td>
                         <td><fmt:formatDate value="${book.publishDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                         <td>${book.admin.name}</td>
-                        <td><button type="button" id="editBtn" class="btn btn-primary btn-sm">详情</button>&nbsp;&nbsp;<button type="button" class="btn btn-danger btn-sm"  id="delBtn" >借出</button></td>
+                        <td><button type="button" id="editBtn" class="btn  btn-info btn-sm">详情</button>&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-sm"  id="delBtn" >借出</button></td>
                     </tr>
                 </c:forEach>
                 </tbody>
