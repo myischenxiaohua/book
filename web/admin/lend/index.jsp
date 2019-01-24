@@ -17,7 +17,7 @@
             <table class="table table-bordered table-hover " id="table">
                 <thead>
                 <tr>
-                    <th>编号</th>
+                    <%--<th>编号</th>--%>
                     <th>书籍名称</th>
                     <th>分类</th>
                     <th>书架</th>
@@ -25,6 +25,8 @@
                     <th>出版社</th>
                     <th>版次</th>
                     <th>出版时间</th>
+                    <th>可借</th>
+                    <th>库存</th>
                     <th>添加人</th>
                     <th>操作</th>
                 </tr>
@@ -32,7 +34,7 @@
                 <tbody>
                 <c:forEach  items="${books }" var="book">
                     <tr>
-                        <td>${book.isbn}</td>
+                        <%--<td>${book.isbn}</td>--%>
                         <td>${book.name}</td>
                         <td>${book.bookCategory.name}</td>
                         <td>${book.bookCase.name}</td>
@@ -40,8 +42,10 @@
                         <td>${book.publish}</td>
                         <td>第${book.edition}版</td>
                         <td><fmt:formatDate value="${book.publishDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                        <td>${book.extant}</td>
+                            <td>${book.inventory}</td>
                         <td>${book.admin.name}</td>
-                        <td><button type="button" id="detailBtn" class="btn  btn-info btn-sm">详情</button>&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-sm"  id="lendBtn" isbn="${book.isbn}" >借出</button></td>
+                        <td><button type="button" id="detailBtn" class="btn  btn-info btn-sm">详情</button>&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-sm"  id="lendBtn" extant="${book.extant}" isbn="${book.isbn}" >借出</button></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -62,12 +66,18 @@
                 <h4 class="modal-title" id="myModalLabel">借出</h4>
             </div>
             <div class="modal-body">
-
+                <div class="form-group">
+                    <label for="txt_ISBN">ISBN</label>
+                    <input type="text" class="form-control" id="txt_ISBN" disabled placeholder="用户名">
+                </div>
+                <div class="form-group">
+                    <label for="txt_name">书籍书名</label>
+                    <input type="text" class="form-control" id="txt_name" disabled placeholder="用户名">
+                </div>
                 <div class="form-group">
                     <label for="txt_reader">读者</label>
                     <select class="form-control" id="txt_reader">
-                        <option value="1">超级管理员</option>
-                        <option value="0">管理员</option>
+                        <option value="-1">请选择</option>
                     </select>
                 </div>
 
@@ -80,10 +90,37 @@
     </div>
 </div>
 <script>
-$("#lendBtn").click(function () {
-    $('#myModal').modal();
+    var extant=0;
+    $(function () {
+        $.ajaxAction("/book/admin/AdminServlet/list","get",{ajax:true},[setOption]);
+    });
+    function setOption(data){
+        if(data.status){
+            for (var op of data.data)
+            $("#txt_reader").append("<option value=\""+op.id+"\">"+op.name+"</option>");
+        }else {
+            console.log(data);
+        }
 
-});
+    }
+    $("#table #lendBtn").click(function () {
+        extant=$(this).attr("extant")
+        $("#txt_ISBN").val($(this).attr("isbn"));
+        $("#txt_name").val($(this).parent().parent().children().get(0).innerText)
+        $('#myModal').modal();
+
+    });
+    $("#btn_submit").click(function () {
+        $.ajaxAction("/book/admin/LendServlet/add","post",{isbn:$("#txt_ISBN").val(),reader:$("#txt_reader").val(),extant:extant},[reloadData])
+    })
+    function reloadData(data,prm){
+        if(data.status){
+          $.dialog().alert({message:data.msg})
+            location.reload();
+        }
+
+    }
+    
 </script>
 
 <jsp:include page="/admin/base/footer.jsp"></jsp:include>

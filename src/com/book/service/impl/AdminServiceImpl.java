@@ -12,6 +12,7 @@ import com.book.service.AdminService;
 import com.book.util.Database;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AdminServiceImpl implements AdminService {
@@ -61,6 +62,17 @@ public class AdminServiceImpl implements AdminService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Admin> list() throws Exception {
+        try{
+            return new AdminDaoImpl(this.db.getConn()).findAll();
+        } catch(Exception e){
+            throw e;
+        } finally{
+            this.db.close();
+        }
     }
 
     @Override

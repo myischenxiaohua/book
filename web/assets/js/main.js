@@ -4,8 +4,6 @@ $("#main-menu").children().first().siblings().children("a").click(function(){
     $(this).parent().siblings().children("ul").collapse('hide')
 });
 
-function reloadData(data,prm){
-    location.reload();
-}
+
 
 

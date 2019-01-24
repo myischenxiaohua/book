@@ -19,6 +19,8 @@ public interface BooksService {
      */
     boolean insert(Books vo) throws Exception;
 
+    boolean updateExtant(Books vo) throws Exception;
+
     /**
      * 调用分页接口类
      * @param column 列名

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.book.util.MD5Code;
 import com.book.util.WebUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 
@@ -39,6 +40,7 @@ public class AdminServlet extends HttpServlet {
                 break;
             case "del":del(request,response);break;
             case "edit" :edit(request,response);break;
+            case "list" :list(request,response);break;
         }
 
     }
@@ -192,6 +194,29 @@ public class AdminServlet extends HttpServlet {
             jsonObject.put("status",status);
             System.out.println(status);
             response.getWriter().print(jsonObject.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void list(HttpServletRequest request,HttpServletResponse response){
+
+        try {
+
+            if(WebUtils.validateEmpty(request.getParameter("ajax"))){
+                JSONArray jsonArray=new JSONArray();
+                for (Admin admin : new AdminServiceImpl().list()){
+
+                    jsonArray.put(new JSONObject(admin));
+
+                }
+                JSONObject jsonObject=new JSONObject();
+                jsonObject.put("status",1);
+                jsonObject.put("data",jsonArray);
+                response.getWriter().print(jsonObject.toString());
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

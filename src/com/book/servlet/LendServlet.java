@@ -1,13 +1,20 @@
 package com.book.servlet;
 
+import com.book.domian.Books;
+import com.book.domian.LendBook;
+import com.book.domian.Reader;
 import com.book.service.impl.BooksServiceImpl;
+import com.book.service.impl.LendServiceImpl;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 /*
@@ -55,6 +62,39 @@ public class LendServlet extends HttpServlet {
         request.getRequestDispatcher("/admin/lend/index.jsp").forward(request,response);
     }
     public void add(HttpServletRequest request, HttpServletResponse response){
+
+        Reader reader=new Reader();
+        reader.setId(Integer.parseInt(request.getParameter("reader")));
+        Books book=new Books();
+        book.setIsbn(request.getParameter("isbn"));
+        book.setExtant(Integer.parseInt(request.getParameter("extant"))-1);
+        LendBook lendBook=new LendBook();
+        lendBook.setBook(book);
+        lendBook.setReader(reader);
+        lendBook.setCredate(new Timestamp(new Date().getTime()));
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.DAY_OF_MONTH,5);
+        lendBook.setRetdate(new Timestamp(c.getTime().getTime()));
+        JSONObject jsonObject=new JSONObject();
+        String msg="";
+        int status=0;
+        try {
+            if(new LendServiceImpl().insert(lendBook)){
+                new BooksServiceImpl().updateExtant(book);
+                status=1;
+                msg="借阅成功";
+
+
+            }else {
+                msg="借阅失败";
+            }
+            jsonObject.put("status",status);
+            jsonObject.put("msg",msg);
+            response.getWriter().print(jsonObject.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

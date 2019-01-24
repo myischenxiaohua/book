@@ -125,4 +125,11 @@ public class BooksDaoImpl extends BaseDaoImpl implements BooksDao {
         }
         return true;
     }
+
+    @Override
+    public boolean updateExtant(String isbn,Integer extant) throws Exception {
+        String sql="update T_BOOKS set extant=? where isbn=?";
+        int rel=super.executeUpdate(sql,extant,isbn);
+        return rel>0;
+    }
 }

@@ -71,13 +71,13 @@ import java.util.Set;
      @Override
      public List findAll() throws SQLException {
          List<Admin> list=new ArrayList<Admin>();
-         String sql="select * from T_ADMIN";
+         String sql="select id,name,lastdate,flag,phone,status from T_ADMIN where status=1";
          ResultSet rst= super.executeQuery(sql);
          while (rst.next()){
              Admin admin=new Admin();
              admin.setId(rst.getInt("id"));
              admin.setName(rst.getString("name"));
-             admin.setPassword(rst.getString("password"));
+             //admin.setPassword(rst.getString("password"));
              admin.setLastDate(rst.getTimestamp("lastdate"));
              admin.setFlag(rst.getShort("flag"));
              admin.setPhone(rst.getString("phone"));

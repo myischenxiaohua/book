@@ -30,6 +30,12 @@ public class BooksServiceImpl implements BooksService {
     }
 
     @Override
+    public boolean updateExtant(Books vo) throws Exception {
+        if(new BooksDaoImpl(db.getConn()).updateExtant(vo.getIsbn(),vo.getExtant()))return true;
+        return false;
+    }
+
+    @Override
     public Map<String, Object> listBySplit(String column, String keyword, int currentPage, int lineSize) throws Exception {
         Map<String, Object> map = null;
         try{

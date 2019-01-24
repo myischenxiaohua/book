@@ -8,6 +8,7 @@ package com.book.service; /*
 
 import com.book.domian.Admin;
 
+import java.util.List;
 import java.util.Map;
 
 public interface AdminService {
@@ -41,6 +42,13 @@ public interface AdminService {
      * @throws Exception
      */
     boolean delById(int id) throws Exception;
+
+    /**
+     * 定义实现数据全部查询操作
+     * @return
+     * @throws Exception
+     */
+    List<Admin> list() throws Exception;
 
 
 

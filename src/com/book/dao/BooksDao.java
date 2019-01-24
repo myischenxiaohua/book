@@ -12,4 +12,11 @@ import java.sql.SQLException;
 
 public interface BooksDao extends BaseDao<String, Books> {
     boolean findByName(String name) throws SQLException;//根据书籍查询该书籍是否存在
+    /**
+     * 更新现存量
+     * @param isbn 要更新的用户名
+     * @return
+     * @throws Exception
+     */
+    boolean updateExtant(String isbn,Integer extant) throws Exception;
 }
