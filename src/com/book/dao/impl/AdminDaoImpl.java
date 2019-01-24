@@ -70,7 +70,22 @@ import java.util.Set;
 
      @Override
      public List findAll() throws SQLException {
-         return null;
+         List<Admin> list=new ArrayList<Admin>();
+         String sql="select * from T_ADMIN";
+         ResultSet rst= super.executeQuery(sql);
+         while (rst.next()){
+             Admin admin=new Admin();
+             admin.setId(rst.getInt("id"));
+             admin.setName(rst.getString("name"));
+             admin.setPassword(rst.getString("password"));
+             admin.setLastDate(rst.getTimestamp("lastdate"));
+             admin.setFlag(rst.getShort("flag"));
+             admin.setPhone(rst.getString("phone"));
+             admin.setStatus(rst.getShort("status"));
+             list.add(admin);
+
+         }
+         return list;
      }
 
      @Override
