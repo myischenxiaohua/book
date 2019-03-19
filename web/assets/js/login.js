@@ -10,7 +10,7 @@ $(function () {
        var name=$("#username").val();
        var pwd=$("#password").val();
        var code=$("#code").val();
-       var url='http://localhost:8080/book/admin/AdminServlet/login';
+       var url='/book/admin/AdminServlet/login';
        $.ajaxAction(url,"post",{user:name,password:pwd,code:code},[cheackLogin]);
 
    })

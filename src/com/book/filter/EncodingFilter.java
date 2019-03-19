@@ -15,20 +15,28 @@ import javax.servlet.ServletResponse;
 import java.io.IOException;
 
 public class EncodingFilter implements Filter {
+    private String encoding=null;
     @Override
-    public void destroy() {}
+    public void destroy() {
+        encoding=null;
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
 
-        chain.doFilter(request, response);	//放行
-
+            request.setCharacterEncoding(this.encoding);
+            response.setCharacterEncoding(this.encoding);
+            chain.doFilter(request, response);	//放行
 
     }
 
     @Override
-    public void init(FilterConfig arg0) throws ServletException {}
+    public void init(FilterConfig config) throws ServletException {
+       String encoding= config.getInitParameter("encoding");
+       if(this.encoding==null) {
+           this.encoding = encoding;
+       }
+
+    }
 }

@@ -8,6 +8,7 @@ package com.book.service; /*
 
 import com.book.domian.Reader;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ReaderService {
@@ -18,6 +19,12 @@ public interface ReaderService {
      * @throws Exception
      */
     boolean insert(Reader vo) throws Exception;
+    /**
+     * 定义实现数据全部查询操作
+     * @return
+     * @throws Exception
+     */
+    List<Reader> list() throws Exception;
 
     /**
      * 调用分页接口类

@@ -37,6 +37,7 @@
         管理员:${user}
 
         <small>上次登录日期:<fmt:formatDate value="${lastdate}" pattern="yyyy-MM-dd HH:mm:ss"/></small>
+        <small>当前登录统计：${sessionCount}</small>
 
     </div>
     <div class="header-right">

@@ -14,8 +14,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
-public class LendBookDapImpl extends BaseDaoImpl implements LendBookDao {
-    public LendBookDapImpl(Connection conn) {
+public class LendBookDaoImpl extends BaseDaoImpl implements LendBookDao {
+    public LendBookDaoImpl(Connection conn) {
         super(conn);
     }
 

@@ -25,6 +25,7 @@
                     <div class="form-group"> <i class="fa glyphicon glyphicon-user"></i> <input class="form-control" type="text" placeholder="用户名" id="username" autofocus="autofocus" maxlength="20" /> </div>
                     <div class="form-group"> <i class="fa glyphicon glyphicon-lock"></i> <input class="form-control" type="password" placeholder="密码" id="password"  maxlength="8" /> </div>
                     <div class="form-group"><i class="fa glyphicon glyphicon-pencil"></i> <input class="form-control" type="text" placeholder="验证码" id="code"  maxlength="8" /><img src="/book/IdentityServlet/IdentifyingCode"> </div>
+                    <div class="form-group">用户名：admin 密码：admin </div>
                     <div class="form-group col-md-offset-9">
                         <button type="button" class="btn btn-primary">登录</button>
                     </div>

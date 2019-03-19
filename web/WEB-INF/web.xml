@@ -8,6 +8,10 @@
     <filter>
         <filter-name>EncodingFilter</filter-name>
         <filter-class>com.book.filter.EncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
     </filter>
 
     <filter-mapping>
@@ -20,6 +24,10 @@
         <filter-name>AdminLoginFilter</filter-name>
         <filter-class>com.book.filter.AdminLoginFilter</filter-class>
     </filter>
+    <!--登录监听器-->
+    <listener>
+        <listener-class>com.book.listener.LoginListener</listener-class>
+    </listener>
 
     <filter-mapping>
         <filter-name>AdminLoginFilter</filter-name>

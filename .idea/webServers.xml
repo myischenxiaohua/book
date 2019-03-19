@@ -10,6 +10,14 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
+      <webServer id="70943f92-0269-4756-b5d5-91a6e808f64f" name="cqbdqn" url="http://39.108.123.15">
+        <fileTransfer host="39.108.123.15" port="22" rootFolder="/home/chenxiaohua" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

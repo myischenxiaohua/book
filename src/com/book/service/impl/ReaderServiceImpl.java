@@ -12,6 +12,7 @@ import com.book.service.ReaderService;
 import com.book.util.Database;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ReaderServiceImpl implements ReaderService {
@@ -32,6 +33,17 @@ public class ReaderServiceImpl implements ReaderService {
 
 
         return false;
+    }
+
+    @Override
+    public List<Reader> list() throws Exception {
+        try{
+            return new ReaderDaoImpl(this.db.getConn()).findAll();
+        } catch(Exception e){
+            throw e;
+        } finally{
+            this.db.close();
+        }
     }
 
     @Override

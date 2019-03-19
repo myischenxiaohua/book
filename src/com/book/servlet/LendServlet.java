@@ -34,6 +34,7 @@ public class LendServlet extends HttpServlet {
         switch (status){
             case "index" : index(request,response);break;
             case "add":add(request,response);break;
+            case "list":list(request,response);break;
         }
 
 
@@ -95,6 +96,9 @@ public class LendServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+    public void list(HttpServletRequest request, HttpServletResponse response){
 
     }
 

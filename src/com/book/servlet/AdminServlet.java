@@ -1,12 +1,9 @@
 package com.book.servlet;
 
-import com.book.dao.impl.AdminDaoImpl;
 import com.book.domian.Admin;
 import com.book.service.impl.AdminServiceImpl;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Map;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

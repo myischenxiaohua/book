@@ -92,7 +92,7 @@
 <script>
     var extant=0;
     $(function () {
-        $.ajaxAction("/book/admin/AdminServlet/list","get",{ajax:true},[setOption]);
+        $.ajaxAction("/book/admin/ReaderServlet/all","get",{ajax:true},[setOption]);
     });
     function setOption(data){
         if(data.status){

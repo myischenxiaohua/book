@@ -16,7 +16,7 @@ public class ConfigManager {
     static {
         InputStream is = null;
         is = ConfigManager.class.getClassLoader().getResourceAsStream(
-                "database.properties");
+                "database.properties");//获取文件流
         if (is == null)
             throw new RuntimeException("找不到数据库参数配置文件！");
         props = new Properties();

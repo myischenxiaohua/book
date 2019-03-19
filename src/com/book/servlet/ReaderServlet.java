@@ -8,6 +8,9 @@ package com.book.servlet; /*
 
 import com.book.domian.Reader;
 import com.book.service.impl.ReaderServiceImpl;
+import com.book.util.WebUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -30,6 +33,7 @@ public class ReaderServlet extends HttpServlet {
 
             case "add":add(request,response); break;
             case "index":index(request,response); break;
+            case "all":all(request,response); break;
 
         }
     }
@@ -80,6 +84,29 @@ public class ReaderServlet extends HttpServlet {
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("keyWord", keyWord);
         request.getRequestDispatcher("/admin/reader/index.jsp").forward(request,response);
+
+    }
+
+    public void all(HttpServletRequest request,HttpServletResponse response){
+
+        try {
+
+            if(WebUtils.validateEmpty(request.getParameter("ajax"))){
+                JSONArray jsonArray=new JSONArray();
+                for (Reader reader : new ReaderServiceImpl().list()){
+
+                    jsonArray.put(new JSONObject(reader));
+
+                }
+                JSONObject jsonObject=new JSONObject();
+                jsonObject.put("status",1);
+                jsonObject.put("data",jsonArray);
+                response.getWriter().print(jsonObject.toString());
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

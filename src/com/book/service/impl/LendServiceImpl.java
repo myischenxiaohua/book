@@ -6,7 +6,7 @@ package com.book.service.impl; /*
  Time: 17:30
  */
 
-import com.book.dao.impl.LendBookDapImpl;
+import com.book.dao.impl.LendBookDaoImpl;
 import com.book.domian.LendBook;
 import com.book.service.LendService;
 import com.book.util.Database;
@@ -17,7 +17,7 @@ public class LendServiceImpl implements LendService {
     private Database db=new Database();
     @Override
     public boolean insert(LendBook vo) throws Exception {
-       if(new LendBookDapImpl(db.getConn()).createData(vo)) return true;
+       if(new LendBookDaoImpl(db.getConn()).createData(vo)) return true;
         return false;
     }
 

@@ -61,7 +61,23 @@ public class ReaderDaoImpl extends BaseDaoImpl implements ReaderDao {
 
     @Override
     public List<Reader> findAll() throws SQLException {
-        return null;
+        List<Reader> list=new ArrayList<Reader>();
+        String sql="select * from  T_READER";
+        ResultSet rst= super.executeQuery(sql);
+        while (rst.next()){
+            Reader reader=new Reader();
+            reader.setId(rst.getInt("id"));
+            reader.setName(rst.getString("name"));
+            reader.setAge(rst.getInt("age"));
+            reader.setCard(rst.getString("card"));
+            reader.setSex(rst.getShort("sex"));
+            reader.setPhone(rst.getString("phone"));
+            reader.setViolationNo(rst.getInt("violation_no"));
+            reader.setBorrowBookNumber(rst.getInt("borrow_book_number"));
+            reader.setCreateDate(rst.getDate("createDate"));
+            list.add(reader);
+        }
+        return list;
     }
 
     @Override
